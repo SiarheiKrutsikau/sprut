@@ -162,8 +162,8 @@
 			//установка часового пояса на сервере Московским
 			date_default_timezone_set('Europe/Moscow'); 
 	
-		//include('../htdocs/bd.php');	
-	include('bd.php');
+			
+	include('../htdocs/bd.php');
 	
 	
 	
@@ -444,8 +444,8 @@ imagedestroy($photo);
 		echo "<a style='color:red' href='index.php'  >Файлы изображения папки не загружен или тип не формата jpg. Вернитесь к форме заполенния.</a>"; exit;
 	}
 // удаление фала txt сесии
-			$sessiontxt='txt/report recent files.txt';
-if (file_exists($sessiontxt)) {unlink ($sessiontxt); } 
+			$previewfolder='txt/report recent files.txt';
+if (file_exists($previewfolder)) {unlink ($previewfolder); } 
    
 	
 
@@ -479,8 +479,7 @@ $team=	"INSERT INTO `menu` ( `unamefolder`, `namefolder`, `previewfolder`) VALUE
 	
 	
 	//linkcopy
-	$team="UPDATE menu SET linkcopy = $max WHERE id = $max";
-
+	$team="UPDATE `menu` SET `linkcopy` = '$max' WHERE `menu`.`id` = $max";
 	mysqli_query($conect, $team);
 	$id=mysqli_query($conect, $team);
 
@@ -1276,8 +1275,7 @@ fclose($fp);
 	  		
 		echo "<a  style='color:green' href='txt\report recent files.txt' download>Сохранить отчет последней загрузки(формат TXT)</a></br>";
 	  echo "<a style='color:green' href='txt\report on all files.txt' download>Сохранить отчет загрузки за все время (формат TXT)</a></br>";
-	  echo "<a style='color:red' href='index6.php'  > Вернуться к форме загрузки файлов</a><br>";
-	  echo "<a style='color:red' href='index.php'  > Вернуться к сайту</a>";
+	  echo "<a style='color:red' href='index.php'  > Вернуться к форме загрузки файлов.</a>";
 	  echo "<p class='h6'color='green' >Успешно загружены фалы ($col шт.) : </br>Папка: $namefolder</p>";
 	  $sc=0; $gal='<img src="gall_green.jpg">';
 	  
