@@ -194,7 +194,7 @@ margin: 50px 50px 50px 50px;
 	.f{
 			border: solid 2px #AC9E16;
 		width:300px;
-			height: 300px;
+			height: 350px;
 			background: white;
 			float: left;
 		border-radius: 25px;
@@ -206,7 +206,7 @@ margin: 50px 50px 50px 50px;
 		.f:hover{
 			border: solid 2px #CFBD16; 
 			width:300px;
-			height: 300px;
+			height: 350px;
 			background:white;
 			float: left;
 		border-radius: 25px;
@@ -215,7 +215,15 @@ margin: 50px 50px 50px 50px;
 			color:#CFBD16;
 			font-size: 24px;
 		}
-	
+	.img
+        {
+       display: block;
+        margin-left: auto;
+        margin-right: auto;
+         margin-bottom: 100;
+        //width: 50%;
+    
+        }
 	
 </style> 
 </head>
@@ -238,7 +246,7 @@ margin: 50px 50px 50px 50px;
 			while ($a=mysqli_fetch_array($dfolder))
 			{
 				
-				echo "<a href='index2.php?lc=$a[linkcopy]'><div class='f'></br></br><img src='$a[previewfolder]' width='200' height='200'></br>$a[unamefolder]</div></a>";
+				echo "<a href='index2.php?lc=$a[linkcopy]'><div class='f'><img class='img' src='$a[previewfolder]' width='250' height='250'>Папка:</br>$a[unamefolder]</div></a>";
 			}
 
 			

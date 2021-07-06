@@ -437,15 +437,15 @@ imagedestroy($photo);
 	//удаление файла из временной папки
 	$previewfolder='images/'.$foo1.'/preview.jpg';
 	unlink ("temp/1.jpg");
-		
+		echo $previewfolder;
 		
 	}
 	else{
 		echo "<a style='color:red' href='index.php'  >Файлы изображения папки не загружен или тип не формата jpg. Вернитесь к форме заполенния.</a>"; exit;
 	}
 // удаление фала txt сесии
-			$previewfolder='txt/report recent files.txt';
-if (file_exists($previewfolder)) {unlink ($previewfolder); } 
+			$previewfolder1='txt/report recent files.txt';
+if (file_exists($previewfolder1)) {unlink ($previewfolder1); } 
    
 	
 
@@ -456,7 +456,7 @@ if (file_exists($previewfolder)) {unlink ($previewfolder); }
 	
 	//создание меню 
 	$nns="'$namefolder','$foo1', '$previewfolder'";
-$team=	"INSERT INTO `menu` ( `unamefolder`, `namefolder`, `previewfolder`) VALUES ($nns)";
+$team="INSERT INTO `menu` ( `unamefolder`, `namefolder`, `previewfolder`) VALUES ($nns)";
 	mysqli_query($conect, $team);
 		
 	$team="SELECT id FROM menu WHERE previewfolder='$previewfolder' and unamefolder='$namefolder'";
@@ -1154,8 +1154,8 @@ elseif(!isset($exifdata["DateTimeOriginal"])) //время для cr2
 		$namesave="images/$foo1/$name2".'P.jpg';
 	
 		preview ($where, $namesave);
-		
-		$previewf="$name2".'P.jpg';
+		//images/'.$foo1.'/
+		$previewf="images/$foo1/".$name2.'P.jpg';
 			array_unshift($marraycopy, $previewf);
 		
 		//имя  файла на компьюетре
@@ -1275,7 +1275,8 @@ fclose($fp);
 	  		
 		echo "<a  style='color:green' href='txt\report recent files.txt' download>Сохранить отчет последней загрузки(формат TXT)</a></br>";
 	  echo "<a style='color:green' href='txt\report on all files.txt' download>Сохранить отчет загрузки за все время (формат TXT)</a></br>";
-	  echo "<a style='color:red' href='index.php'  > Вернуться к форме загрузки файлов.</a>";
+	  echo "<a style='color:red' href='index6.php'  > Вернуться к форме загрузки файлов.</a>";
+          echo "</br><a style='color:red' href='index.php'  > Вернуться к сайту.</a>";
 	  echo "<p class='h6'color='green' >Успешно загружены фалы ($col шт.) : </br>Папка: $namefolder</p>";
 	  $sc=0; $gal='<img src="gall_green.jpg">';
 	  

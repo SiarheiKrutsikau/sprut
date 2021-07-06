@@ -28,7 +28,22 @@ margin: 0 auto;
 	}
 	
 	
-	.block .element2{
+	.element2{
+	border: solid 3px #AC9E16;
+	text-align: center;
+	
+	height: auto;
+	width: 17%;
+	background-color: white;
+	border-radius: 25px;
+	font-size: 25px;
+	padding: 20px;
+	float: right;
+	margin-top: 4%;
+	margin-right: 1%;	
+		
+	}
+	.element2:hover{
 	border: solid 3px #CFBD16;
 	text-align: center;
 	
@@ -108,23 +123,30 @@ margin: 0 auto;
 		margin-right: 1%;
 	}
 	
-	/*.f0{
-	border: solid 3px #CFBD16;
+	.f0{
+	
 	text-align: center;
-	/*padding: 10px 10px 10px 10px; /*внутрений абзац*/
-/*	float: left;
-	height: 200px;
-	width: 200px;
+	
+	float: center;
+	
 	background-color: white;
 	border-radius: 25px;
 	font-size: 25px;
-	box-shadow: 0 0 0 3px #FFFFFF, 
-                0 0 0 1px #CFBD16,
-                5px 5px 5px 5px #CFBD16;
 	color: #AC9E16;
-margin: 50px 50px 50px 50px;
+
 	}
-	*/
+	.f0:hover{
+            
+	text-align: center;
+	
+	float: center;
+	
+	background-color: white;
+	border-radius: 25px;
+	font-size: 25px;
+	color: #CFBD16;
+        }
+        
 	
 	
 	
@@ -174,7 +196,7 @@ margin: 50px 50px 50px 50px;
 	.f{
 			border: solid 2px #AC9E16;
 		width:300px;
-			height: 300px;
+			height: 350px;
 			background: white;
 			float: left;
 		border-radius: 25px;
@@ -186,7 +208,7 @@ margin: 50px 50px 50px 50px;
 		.f:hover{
 			border: solid 2px #CFBD16; 
 			width:300px;
-			height: 300px;
+			height: 350px;
 			background:white;
 			float: left;
 		border-radius: 25px;
@@ -195,7 +217,30 @@ margin: 50px 50px 50px 50px;
 			color:#CFBD16;
 			font-size: 24px;
 		}
-	
+	.f1{
+			border: solid 2px #AC9E16;
+		width:300px;
+			height: 350px;
+			background: white;
+			float: left;
+		border-radius: 25px;
+		margin: 10px;
+		text-align: center;
+		color:#AC9E16;
+		font-size: 20px;
+		}
+	.f1:hover{
+			border: solid 2px #CFBD16; 
+			width:300px;
+			height: 350px;
+			background:white;
+			float: left;
+		border-radius: 25px;
+		margin: 10px;
+		text-align: center;
+			color:#CFBD16;
+			font-size: 20px;
+		}
 	
 </style> 
 </head>
@@ -207,35 +252,58 @@ margin: 50px 50px 50px 50px;
 		
 		<div class="element3">
 	<?php
-			var_dump($_GET['lc']);
+			include('bd.php');
+                       // var_dump($_GET['lc']);
 			if(isset($_GET['lc']) and trim ($_GET['lc']!=NULL)) $get=trim($_GET['lc']);
 			include('bd.php');
-			$team="SELECT unamefolder, linkcopy, previewfolder FROM tablefiles WHERE linkf=$get";
-			
+                       // var_dump($_GET['lc']);
+			if(isset($_GET['lc']) and trim ($_GET['lc']!=NULL)) $get=trim($_GET['lc']);
+                        // имя папки
+                        $team="SELECT unamefolder FROM menu WHERE linkcopy=$get";
+			$dfolder=mysqli_query($conect, $team);
+                        $unamefolder=mysqli_fetch_array($dfolder);
+                    
+                        $unamefolder=$unamefolder['unamefolder'];
+                        //echo $unamefolder;
+                        echo "<div class='f0'>Имя папки: $unamefolder</div></br>";
+                        // данные для вывода на страницу
+			$team="SELECT compnamef, namef, author, previewf, sdata FROM tablefiles WHERE linkf=$get";
 			$dfolder=mysqli_query($conect, $team);
 	  		$col = mysqli_num_rows($dfolder);
-			echo $col;
-			
-			echo '<a href="index.php"><div class="f"></br></br></br></br></br>back</div></a>';
-				for($i=1;$i<221;$i++)
+                        echo '<a href="index.php"><div class="f"></br></br></br></br></br></br>back</div></a>';
+			while ($a=mysqli_fetch_array($dfolder))
 			{
-				
-				echo "<a $id = '$i'  href='izo.php?new=$i'><div class='f'></br><img src='images/$i.png' width='200' height='204'></br>dog</div></a>";
-				
-		
+				$b=trim ($a['compnamef']);
+				echo "<a href='izo.php?rc=$b&lc=1'><div class='f1'><<img src='$a[previewf]' width='220' height='220'></br>Имя фала: $a[namef]</br>Автор: $a[author]</br>Дата создания: $a[sdata]</div></a>";
 			}
-			echo '<a href="index.php"><div class="f"></br></br></br></br></br>back</div></a>';
-			?>
+			
+			//echo '<a href="index.php"><div class="f"></br></br></br></br></br>back</div></a>';
+				
+                        
+			echo '<a href="index.php"><div class="f"></br></br></br></br></br></br>back</div></a>';
+                        //проверка таблицы на существование
+                       /* $team="SELECT * FROM menu LIMIT 1";
+                      	$dfolder=mysqli_query($conect, $team);
+                       if ($dfolder) 
+                       {
+                           echo "swd";
+                        }
+                      */
+                       
+			/*
+                        <div class="f1">
+		<div class="r1">реклама1</div>
+		<div class="r1">реклама2</div>
+		<div class="r1">реклама3</div>
+		</div>
+                        */
+                        ?>
 			</div>
 		
 		
 		<div class="element2"><a href="">DOG 	FORMAT PNG</a></div>
 		
-		<div class="f1">
-		<div class="r1">реклама1</div>
-		<div class="r1">реклама2</div>
-		<div class="r1">реклама3</div>
-		</div>
+		
 </div>	
 		
 		

@@ -291,9 +291,53 @@ margin: 50px 50px 50px 50px;
 		
 		
 		<div class="element3">
-	<?php
-			$id=(int)$_GET['new'];
-			
+	<?php 
+   
+			include('bd.php');
+                       //проверка $_GET['rc']
+			if(isset($_GET['rc']) and trim ($_GET['rc']!=NULL))
+                        {
+                            
+                             $rc=trim($_GET['rc']);
+                            $lc=trim($_GET['lc']);
+                            
+                        }
+                        else
+                       {
+                            $lc=trim($_GET['lc']);
+                            echo "<a style='color:red; font-size: 25px;' href='index2.php?lc=$lc'  >Нет такого файла. Вернитесь к файлам папки.</a>"; exit;
+                        }
+        // проверка существования lc в базе
+                         $team="SELECT id  FROM tablefiles WHERE linkf=$lc";
+			$dfolder=mysqli_query($conect, $team);
+                        $a=mysqli_fetch_array($dfolder);
+                        if (!$a['id'])
+                        {
+                            echo "<a style='color:red; font-size: 25px;' href='index.php' >Не правильная ссылка LC. Вернитесь к файлам папки.</a>"; exit;
+                        }
+                       // else echo "ok";
+                         
+                        
+        // проверка существования имени передаваемого $_GET['rc'] в базе
+                        $team="SELECT compnamef FROM tablefiles WHERE linkf=$lc";
+			$dfolder=mysqli_query($conect, $team); 
+                        $col = mysqli_num_rows($dfolder);$ch=0;
+                        while ($a=mysqli_fetch_array($dfolder))
+			{
+                           $ch++;
+                            $b=trim ($a['compnamef']);
+                                if($b==$rc)
+                                {
+                                    echo "Есть такое имя"; break;
+                                }
+                                else if($col=$ch)
+                                {
+                                 echo "<a style='color:red; font-size: 25px;' href='index2.php?lc=$lc'  >Нет такого файла. Вернитесь к файлам папки.</a>"; exit;
+
+                                }
+                               
+			}
+                       echo "ghbdtn"; exit();                        
 			// удаление файлов из папки zip
 			$cat=scandir("zip/");
 			
@@ -310,7 +354,7 @@ margin: 50px 50px 50px 50px;
 			}
 			
 			//создание zip arhiva
-			$aname='images/'.$id.'.png';
+			$aname='images/'.$rc;
 				
 			$files=array($aname);
 			$zipname = 'zip/'.$id.'.zip';
