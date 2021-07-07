@@ -15,8 +15,8 @@ margin: 0 auto;
 	min-width:800px;
 	}
 	
-	.block .element1{
-	border: solid 0px #C7CADD;
+	.element1{
+	border: solid 0px #AC9E16;
 	margin: 0px 0px 0px 0px;
 	padding: 0px 0px 0px 0px;
 	float: left;
@@ -26,7 +26,17 @@ margin: 0 auto;
 		color: white;
 		text-align: center;
 	}
-	
+	.element1:hover{
+	border: solid 0px #CFBD16;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	float: left;
+	height: 200px;
+	width: 100%;
+		background-color: white;
+		color: white;
+		text-align: center;
+	}
 	
 	.element2{
 	border: solid 3px #AC9E16;
@@ -205,7 +215,7 @@ margin: 50px 50px 50px 50px;
 		color:#AC9E16;
 		font-size: 24px;
 		}
-		.f:hover{
+	.f:hover{
 			border: solid 2px #CFBD16; 
 			width:300px;
 			height: 350px;

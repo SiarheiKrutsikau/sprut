@@ -37,7 +37,22 @@ margin: 0 auto;
 	}
 	
 	
-	.block .element2{
+	.element2{
+	border: solid 3px #AC9E16;
+	text-align: center;
+	
+	height: auto;
+	width: 17%;
+	background-color: white;
+	border-radius: 25px;
+	font-size: 25px;
+	padding: 20px;
+	float: right;
+	margin-top: 4%;
+	margin-right: 1%;	
+		
+	}
+	.element2:hover{
 	border: solid 3px #CFBD16;
 	text-align: center;
 	
@@ -45,7 +60,7 @@ margin: 0 auto;
 	width: 17%;
 	background-color: white;
 	border-radius: 25px;
-	font-size: 24px;
+	font-size: 25px;
 	padding: 20px;
 	float: right;
 	margin-top: 4%;
@@ -117,43 +132,7 @@ margin: 0 auto;
 		margin-right: 1%;
 	}
 	
-	/*.f0{
-	border: solid 3px #CFBD16;
-	text-align: center;
-	/*padding: 10px 10px 10px 10px; /*внутрений абзац*/
-/*	float: left;
-	height: 200px;
-	width: 200px;
-	background-color: white;
-	border-radius: 25px;
-	font-size: 25px;
-	box-shadow: 0 0 0 3px #FFFFFF, 
-                0 0 0 1px #CFBD16,
-                5px 5px 5px 5px #CFBD16;
-	color: #AC9E16;
-margin: 50px 50px 50px 50px;
-	}
-	*/
 	
-	
-	
-	/*.folder:hover{	
-	border: solid 3px #CFBD16;
-	text-align: center;
-	height: 200px;
-	width: 200px;
-	background-color: white;
-	border-radius: 25px;
-	float: left;
-		width: 30%;
-		font-size: 25px;
-	box-shadow: 0 0 0 3px #FFFFFF, 
-                0 0 0 1px #CFBD16,
-                5px 5px 5px 5px #CFBD16;
-	color:#CFBD16;
-margin: 50px 50px 50px 50px;
-	
-	}*/
 	
 	.image
 	{
@@ -161,8 +140,8 @@ margin: 50px 50px 50px 50px;
 		
 	text-align: center;
 	
-	height: 350px;
-	width: 350px;
+	height: auto;
+	width: 700px;
 	background-color: white;
 	border-radius: 25px;
 	font-size: 25px;
@@ -174,8 +153,7 @@ margin: 50px 50px 50px 50px;
 	width: 100%x;
 		background-color: white;
 		float: left;
-		
-		/*min-width: 200px;*/
+	
 	
 	}
 	
@@ -183,7 +161,7 @@ margin: 50px 50px 50px 50px;
 	.f{
 			border: solid 2px #AC9E16;
 		width:300px;
-			height: 300px;
+			height: 350px;
 			background: white;
 			float: left;
 		border-radius: 25px;
@@ -192,10 +170,10 @@ margin: 50px 50px 50px 50px;
 		color:#AC9E16;
 		font-size: 24px;
 		}
-		.f:hover{
+	.f:hover{
 			border: solid 2px #CFBD16; 
 			width:300px;
-			height: 300px;
+			height: 350px;
 			background:white;
 			float: left;
 		border-radius: 25px;
@@ -206,6 +184,18 @@ margin: 50px 50px 50px 50px;
 		}
 	.fmax{
 			border: solid 2px #AC9E16;
+		width:auto;
+			height: auto;
+			background: white;
+			
+		border-radius: 25px;
+		margin: 0px;
+		text-align: center;
+		color:#AC9E16;
+		font-size: 24px;
+		}
+         .fmax:hover{
+			border: solid 2px #CFBD16;
 		width:auto;
 			height: auto;
 			background: white;
@@ -337,7 +327,7 @@ margin: 50px 50px 50px 50px;
                                 }
                                
 			}
-                       echo "ghbdtn"; exit();                        
+                                        
 			// удаление файлов из папки zip
 			$cat=scandir("zip/");
 			
@@ -353,25 +343,38 @@ margin: 50px 50px 50px 50px;
 					
 			}
 			
-			//создание zip arhiva
-			$aname='images/'.$rc;
-				
-			$files=array($aname);
-			$zipname = 'zip/'.$id.'.zip';
 			
-		$zip=new ZipArchive;
-			$zip->open($zipname, ZipArchive::CREATE);
+// получение имени папки
+$team="SELECT namefolder FROM menu WHERE linkcopy='$lc'";
+$dfolder=mysqli_query($conect, $team);               
+$a=mysqli_fetch_array($dfolder);
+$namefolder=$a['namefolder'];
+
+
+$team="SELECT * FROM tablefiles WHERE compnamef='$rc'";
+$dfolder=mysqli_query($conect, $team);
+$al=mysqli_fetch_array($dfolder);
+
+ //var_dump($al);
+
+ //создание zip arhiva
+$aname="images/$namefolder/".$rc;
+echo $aname;
+$files=array($aname);
+$zipname = 'zip/'.$namefolder.'.zip';
+$zip=new ZipArchive;
+$zip->open($zipname, ZipArchive::CREATE);
+foreach($files as $file)
+{
+$zip->addFile($file,$entryname = "$rc");
+}			
+$zip->close();				      			                 
+                        
+ //вывод файла                       
+echo"<a href='$zipname' download ><div class='fmax'><img class='image' src='$aname' ></div></a>";
+			
 		
-			foreach($files as $file)
-			{
-				$zip->addFile($file);
-				
-			}
-			$zip->close();
 			
-		
-			
-				echo "<a href='images/$id.png' download ><div class='fmax'><img class='image' src='images/$id.png' ></div></a>";
 					
 		
 		//<div class="buttonmini"><a href="index.php"><<</a></div><div class="buttonmini">
@@ -386,12 +389,12 @@ margin: 50px 50px 50px 50px;
 			<div class="buttonmini0">
 			
 			
-			<?php 
-				
-				echo "<a href='index2.php' ><div class='buttonmini'>BACK</div></a>";
+			
+			<?php	/*
+				echo "<a href="index2.php' ><div class='buttonmini'>BACK</div></a>";
 				echo "<a href='images/$id.png' download ><div class='buttonmini'>DOWNLOAD</div></a>"; 
 				echo "<a href='zip/$id.zip' download ><div class='buttonmini'>DOWNLOAD ZIP</div></a>";
-				?>
+				*/?>
 			
 		
 			</div>
