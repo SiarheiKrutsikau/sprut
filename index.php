@@ -256,7 +256,7 @@ margin: 50px 50px 50px 50px;
 		
 		
 		<div class="element2">
-			<a href="index2.php">DOG 	FORMAT PNG</a>
+			<a href="index2.php"><?php include ('menu.php');?></a>
 		
 		</div>
 		

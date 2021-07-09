@@ -266,8 +266,7 @@ margin: 50px 50px 50px 50px;
                        // var_dump($_GET['lc']);
 			if(isset($_GET['lc']) and trim ($_GET['lc']!=NULL)) $get=trim($_GET['lc']);
 			include('bd.php');
-                       // var_dump($_GET['lc']);
-			if(isset($_GET['lc']) and trim ($_GET['lc']!=NULL)) $get=trim($_GET['lc']);
+                       	if(isset($_GET['lc']) and trim ($_GET['lc']!=NULL)) $get=trim($_GET['lc']);
                         // имя папки
                         $team="SELECT unamefolder FROM menu WHERE linkcopy=$get";
 			$dfolder=mysqli_query($conect, $team);
@@ -284,7 +283,7 @@ margin: 50px 50px 50px 50px;
 			while ($a=mysqli_fetch_array($dfolder))
 			{
 				$b=trim ($a['compnamef']);
-				echo "<a href='izo.php?rc=$b&lc=1'><div class='f1'><<img src='$a[previewf]' width='220' height='220'></br>Имя фала: $a[namef]</br>Автор: $a[author]</br>Дата создания: $a[sdata]</div></a>";
+				echo "<a href='izo.php?rc=$b&lc=$get'><div class='f1'><<img src='$a[previewf]' width='220' height='220'></br>Имя фала: $a[namef]</br>Автор: $a[author]</br>Дата создания: $a[sdata]</div></a>";
 			}
 			
 			//echo '<a href="index.php"><div class="f"></br></br></br></br></br>back</div></a>';
@@ -311,8 +310,7 @@ margin: 50px 50px 50px 50px;
 			</div>
 		
 		
-		<div class="element2"><a href="">DOG 	FORMAT PNG</a></div>
-		
+<div class="element2"><a href="index2.php"><?php include ('menu.php');?></a>		
 		
 </div>	
 		

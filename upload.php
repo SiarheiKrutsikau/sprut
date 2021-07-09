@@ -3,29 +3,45 @@
 <style>
 .center {
   margin:  10px auto ;
-   display: grid;
+  display: grid;
 	height: auto;
-	
+	background: white;
 		}
-	.center1{
+.center1{
 		justify-content: center;
 		align-items: center;
-	
 		float:top;	
-	grid-row: 1;
+                grid-row: 1;
 		justify-content: center;
 		align-items: left;
 		border: solid 2px #AC9E16;
 		width: auto;
 		height: auto;
-		
 		background: white;
 		border-radius: 25px;
 		text-align: center;
 		color:#008400;
 		font-size: 20px;
 		padding: 8px 10px 10px 8px; 
-	margin: 0px  0px 0px 0px /*верх  право низ лево  */
+                margin: 0px  0px 0px 0px /*верх  право низ лево  */
+	}
+.center1:hover{
+		justify-content: center;
+		align-items: center;
+		float:top;	
+                grid-row: 1;
+		justify-content: center;
+		align-items: left;
+		border: solid 2px #CFBD16;
+		width: auto;
+		height: auto;
+		background: white;
+		border-radius: 25px;
+		text-align: center;
+		color:#CFBD16;
+		font-size: 20px;
+		padding: 8px 10px 10px 8px; 
+                margin: 0px  0px 0px 0px /*верх  право низ лево  */
 	}
 .i2{
 		justify-content: center;
@@ -71,8 +87,7 @@
 		justify-content: center;
 		align-items: center;
 		float:left;	
-	
-	justify-content: center;
+		justify-content: center;
 		align-items: center;
 		border: solid 2px #AC9E16;
 		width: auto;
@@ -83,18 +98,33 @@
 		color:#AC9E16;
 		font-size: 12px;
 		padding: 8px 10px 10px 8px; 
-	margin: 5px  8px 20px 10px /*верх  право низ лево  */
+                margin: 5px  8px 20px 10px /*верх  право низ лево  */
+	}
+        .i3:hover{
+		justify-content: center;
+		align-items: center;
+		float:left;	
+		justify-content: center;
+		align-items: center;
+		border: solid 2px #CFBD16;
+		width: auto;
+		height: auto;
+		background: white;
+		border-radius: 25px;
+		text-align: left;
+		color:#AC9E16;
+		font-size: 12px;
+		padding: 8px 10px 10px 8px; 
+                margin: 5px  8px 20px 10px /*верх  право низ лево  */
 	}
 	.i3d{
 		justify-content: center;
 		align-items: center;
-		
 		float:center;	
 		grid-row: 2;	
-	
-	justify-content: center;
+		justify-content: center;
 		align-items: center;
-		border: solid 2px #AC9E16;
+		border: solid 0px #AC9E16;
 		width: auto;
 		height: auto;
 		min-width: 1600px;
@@ -104,10 +134,10 @@
 		color:#AC9E16;
 		font-size: 12px;
 		padding: 8px 10px 10px 8px; 
-	margin: 5px  8px 20px 10px /*верх  право низ лево  */
+                margin: 5px  8px 20px 10px /*верх  право низ лево  */
 	}
 	
-			.i3:focus {
+	.i3:focus {
 		justify-content: center;
 		align-items: center;
 		float:center;	
@@ -148,6 +178,11 @@
     text-align: center;
 	font-size: 30px;
 }
+.red
+{
+    font-size: 20px;
+    color:red;
+}
 </style>
 <meta charset="utf-8" >
 
@@ -156,19 +191,28 @@
 
 <body>
 	<div class="center"> 
+
 		<div class="i3d">
 	<!--	После отправки файла PHP-скрипту upload.php его можно перехватить с помощью суперглобальной переменной $_FILES с таким же именем, которая в массиве содержит информацию о файле (в нашем случае image):   var_dump($_FILES); -->
 <?php
 			//установка часового пояса на сервере Московским
 			date_default_timezone_set('Europe/Moscow'); 
 	
-			
-	include('../htdocs/bd.php');
-	
-	
-	
-
-		function preview($where, $namesave)
+	include('bd.php');
+	//проверка лун из формы index6.php
+        $key=$_POST['key'];
+        $team="SELECT authoid FROM autho WHERE id=1";
+        $autho=mysqli_query($conect, $team);
+        $authoid=mysqli_fetch_array($autho);
+         $bkey=$authoid['authoid'];
+            if($bkey!=$key)
+        {
+            echo "<a class='red' href='index6.php'  >KEY не верный. Вернитесь к форме заполенния.</a>"; exit;
+        }
+       
+		
+ 
+ function preview($where, $namesave)
 		{
 			
 			$source=$where; //наш исходник
@@ -222,13 +266,6 @@ if ($formatl=='tiff')
 		
 		$im->transformImageColorspace(Imagick::COLORSPACE_RGB);
 	}
-	//Добавляет или удаляет профиль с изображения
-//	$im->profileImage('*', NULL);
-	//Снимает изображение всех профилей и комментариев
-//	 $im->stripImage();
-	
-	
-	
 	
 	//преобразование изображения
 	$im->thumbnailImage($new_width, $new_height);
@@ -297,7 +334,7 @@ imagedestroy($photol);
 	}
 	else 
 	{
-		echo "<a style='color:red' href='index.php'  >Нет имени папки. Вернитесь к форме заполенния.</a>"; exit;
+		echo "<a class='red' href='index6.php'  >Нет имени папки. Вернитесь к форме заполенния.</a>"; exit;
 	}
 		
 	
@@ -340,10 +377,6 @@ imagedestroy($photol);
 $mime = (string) finfo_file($fi, $ftn);
 		$l=strpos($mime, '/')+1;
 		$mime= substr($mime, $l);
-		//echo "mime=".$mime; 
-		//echo mime_content_type ($ftn);
-	
-		
 		
 		
 if ($mime !='jpg' and $mime !='jpeg'and  $mime !='tif'and $mime !='tiff'and $mime !='x-canon-cr2'and $mime !='x-canon-cr3'and $mime !='png'and $mime !='gif' and $mime !='x-ms-bmp' )
@@ -373,9 +406,8 @@ if ($mime !='jpg' and $mime !='jpeg'and  $mime !='tif'and $mime !='tiff'and $mim
 
 	if ($_FILES['image']==NULL)
 	{
-		echo "<a style='color:red' href='index.php'  >Файлы изображений не загружены. Вернитесь к форме заполенния.</a>"; exit;
+		echo "<a class='red' href='index6.php'  >Файлы изображений не загружены. Вернитесь к форме заполенния.</a>"; exit;
 	}
-	
 	
 	
 	//создание превью и проверка
@@ -437,13 +469,12 @@ imagedestroy($photo);
 	//удаление файла из временной папки
 	$previewfolder='images/'.$foo1.'/preview.jpg';
 	unlink ("temp/1.jpg");
-		echo $previewfolder;
 		
 	}
 	else{
-		echo "<a style='color:red' href='index.php'  >Файлы изображения папки не загружен или тип не формата jpg. Вернитесь к форме заполенния.</a>"; exit;
+		echo "<a class='red' href='index6.php'  >Файлы изображения папки не загружен или тип не формата jpg. Вернитесь к форме заполенния.</a>"; exit;
 	}
-// удаление фала txt сесии
+// удаление файла txt сесии
 			$previewfolder1='txt/report recent files.txt';
 if (file_exists($previewfolder1)) {unlink ($previewfolder1); } 
    
@@ -509,14 +540,14 @@ $team="INSERT INTO `menu` ( `unamefolder`, `namefolder`, `previewfolder`) VALUES
 			//strtotime — Преобразует текстовое представление даты
 		
 		$datap1=" Время: ".date("H:i:s", strtotime($value2));
-	//	echo "gggggggggggggggg".$datap1 ;
+	
 		$datap=date("d.m.Y", strtotime($value2));// переворачивает дату
-		//echo "gggggggggggggggg".$datap ;
+		
 			$pieces = explode(".", $datap); // разбиваем значение по .
 			$_mD = ".".$pieces[1]."."; //для замены
-		//echo "gggggggggggggggg".$_mD;
+		
 			$value2 = str_replace($_mD, " ".$list[$_mD]." ", $datap).$datap1; // меняю
-	//echo "gggggggggggggggg".$value ;
+	
 		
 		return($value2);
 	}
@@ -532,10 +563,9 @@ $team="INSERT INTO `menu` ( `unamefolder`, `namefolder`, `previewfolder`) VALUES
 		
 		
 		// загружаем по одному файлу
-		//if ($k='NULL') $k=0;
+		
 		$fileTmpName = $_FILES['image'][$k]['tmp_name'];
-		//$errorCode=$_FILES['image'][$k]['error'];
-		//echo $k;
+		
 		
 			
 		
@@ -554,7 +584,7 @@ $team="INSERT INTO `menu` ( `unamefolder`, `namefolder`, `previewfolder`) VALUES
 		$sizeim=number_format($sizeim,3,".",'');
 		
 		
-		//echo "Размер файла: ".($sizeim)." Мбайт</br>";
+		
 		
 		
 		//$dataiz=filectime ($_FILES['image']['tmp_name'] ); //возвращает последюю дату изменения файла в формате unix
@@ -659,55 +689,15 @@ $mime = (string) finfo_file($fi, $fileTmpName);
 	// получение доп сведений об изображении getimagesize() ПОЛУЧЕНИЕ РАЗМЕРА ИЗОБРАЖЕНИЯ
 // Результат функции запишем в переменную
 $image = getimagesize($fileTmpName);
-	//$fileTmpName - путь ко временному файлу с названием
-	//getimagesize - ПОЛУЧЕНИЕ РАЗМЕРА ИЗОБРАЖЕНИЯ
-	//print_r($image);
-//var_dump($image); //var_dump — Выводит информацию о переменной die — Эквивалент функции exit
- //echo "</br>.$image";
-	//print_r ($image);
+	
 	
 	if ($_FILES['image'][$k]['type']=="image/NEF")
 	{
 		$wnef=round($image[0]*37.6, 1);
 		$hnef=round($image[1]*33.4666, 1);
-	//	echo "</br>Ширина: ".$wnef;//округление
-	//echo "</br>Высота: ".$hnef;//округление
-		
-	//	echo "</br>Ширина: нет данных";
-//	echo "</br>Высота: нет данных";
-	}
-	else
-	{
-//	echo "</br>Ширина: ".$image[0];
-//	echo "</br>Высота: ".$image[1];
+	
 	}
 	
-//	echo "</br>Тип: ".$image[2];
-
-	//echo "</br>".$_FILES['image'][$k]['type'];
-/*	if ($_FILES['image']['type']=="image/NEF" and $_FILES['image']['type']=="image/CR2" and $_FILES['image']['type']=="image/jpg" and $_FILES['image']['type']=="image/jpeg" and $_FILES['image']['type']=="image/gif")
-	{
-	echo "</br>Глубина цвета: ".$image['bits']*$image['channels'];
-	//var_dump($image);
-	//var_dump($fileTmpNam["BitsPerSample"]);
-	echo " бит/".$image['bits']*$image['channels']/$image['channels']." (бит на один канал)" ;
-	}
-	else 
-	{echo "</br>Глубина цвета: нет данных";}
-	*/
-	
-/*	if ($image['channels']==3)
-	{
-	echo "</br>Цветовая модель: RGB";
-	}
-	else echo "</br>Цветовая модель: нет данных";
-		
-	
-	echo "</br>Тип: ".$image['mime']."</br></br>";
-	*/
-
-	
-	//echo "размер разрешенного загрузкой ini ".ini_get('post_max_size');
 	
 	
 	
@@ -813,7 +803,7 @@ if (!move_uploaded_file($fileTmpName, __DIR__ . "/images/$foo1/" . $name2 . $for
 	
 //echo "</br>".$name2.$format;
 
-	echo '<p style="color: red"> Картинка успешно загружена!</p>' ;
+	echo '<p class="red"> Картинка успешно загружена!</p>' ;
 	$compnamef= $name2.$format;
 /*	$width=200;//$image[0]/10; 
 	$height=150;//$image[1]/10; 
@@ -821,22 +811,9 @@ if (!move_uploaded_file($fileTmpName, __DIR__ . "/images/$foo1/" . $name2 . $for
 	
 	*/
 	
-	
-	//"image/$name2$format" - правильное задание пути без точки
-	
-	
+
 $exifdata=@exif_read_data("images/$foo1/$name2$format",'IFD0'); // задается изображение и получает exif данные
-//var_dump($exifdata);
-	/*foreach($exifdata as $a=>$f)
-	{
-		print_r( "</br>".$a." ".$f."</br>");
-	}*/
-	
-	
-	
-	
-	
-	
+
 	
 	
 	$marray=array(array("Имя файла"=>"нет данных"), array("Имя файла на сервере"=>"нет данных"), array("Автор"=>"нет данных"),array("Дата съемки"=>"нет данных"),array("Модель камеры"=>"нет данных"),array("Диафрагма"=>"нет данных"),array("Выдержка"=>"нет данных"),array("ISO"=>"нет данных"),array("Фокусное расстояние объектива"=>"нет данных"),array("Экспокоррекция"=>"нет данных"),array("Светосила"=>"нет данных"),array("Изготовитель камеры"=>"нет данных"), array("Экспозамер"=>"нет данных"),array("Ширина изображения"=>"нет данных"), array("Высота изображения"=>"нет данных"), array("Программа экспозиции"=>"нет данных"),array("Размер изображения, байт"=>"нет данных"), array("Размер изображения, Мбайт"=>"нет данных"),array("Авторские права"=>"нет данных"));
@@ -859,7 +836,7 @@ $exifdata=@exif_read_data("images/$foo1/$name2$format",'IFD0'); // задает�
 	if(isset($exifdata["Artist"])and trim($exifdata["Artist"])) $marray[2]["Автор"]=trim($exifdata["Artist"]);
 	
 	
-//	echo "ssssssssss".$exifdata['DateTimeOriginal'];
+
 	
 	
 	
@@ -1104,7 +1081,7 @@ elseif(!isset($exifdata["DateTimeOriginal"])) //время для cr2
 			if(!isset($exifdata["DateTimeOriginal"]) and !isset($exifdata["DateTime"]))
 		{
 		
-				echo "<p  style='color: red'>Нет EXIF данных! Мало данных!</p>";
+				echo "<p  class='red'>Мало EXIF данных!</p>";
 				$gifdata=stat("images/$foo1/$name2$format"); // считывает массив
 		$giftime=$gifdata['ctime']; // определяет дату unix
 		
@@ -1148,60 +1125,42 @@ elseif(!isset($exifdata["DateTimeOriginal"])) //время для cr2
 		
 		
 		//созание превью функцией
-		
 		$where="images/$foo1/" . $name2 . $format;
 		
 		$namesave="images/$foo1/$name2".'P.jpg';
 	
 		preview ($where, $namesave);
-		//images/'.$foo1.'/
+	
 		$previewf="images/$foo1/".$name2.'P.jpg';
-			array_unshift($marraycopy, $previewf);
+		array_unshift($marraycopy, $previewf);
 		
 		//имя  файла на компьюетре
-		//$compnamef="$name2.xxx";
+		
 		array_unshift($marraycopy, $compnamef);
 		//обозначение папки
 		$linkf="$max";
 		array_unshift($marraycopy, $linkf);
 		
-		//	$width=200;//$image[0]/10; 
-	//$height=200;//$image[1]/10; 
-	echo "<img class='i2' src='$namesave' width='300' height = '300'></br>";
+		echo "<img class='i2' src='$namesave' width='300' height = '300'></br>";
 	
-		
-		
-		
-		
-		
 		
 		$marraycopy= implode("', '", $marraycopy);//массив в строку
 		$marraycopy="'".$marraycopy."'";
-		//$dd="'".$dd."'";
-	
 		
-	//$team="INSERT INTO tablefiles (namef, author) VALUES ('$$marraycopy[0]', '$$marraycopy[1]')";
-		//INSERT INTO `tablefiles` (`id`, `del`, `linkf`, `linktextfile`, `previewf`, `namef`, `author`, `sdata`, `mcamera`, `diafragme`, `excerpt`, `iso`, `focus`, `expo`, `aperture`, `manufacturer`, `expomet`, `width`, `height`, `program`, `sizefb`, `sizefmb`) VALUES (NULL, NULL, NULL, NULL, NULL, 'err', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-//добавление в массив инфы
-	
-	$team=	"INSERT INTO tablefiles (`linkf`, `compnamef`, `previewf`,`namef`, `author`, `sdata`, `mcamera`, `diafragme`, `excerpt`, `iso`, `focus`, `expo`, `aperture`, `manufacturer`, `expomet`, `width`, `height`, `program`, `sizefb`, `sizefmb`, `copyright`) VALUES ($marraycopy)";
+$team=	"INSERT INTO tablefiles (`linkf`, `compnamef`, `previewf`,`namef`, `author`, `sdata`, `mcamera`, `diafragme`, `excerpt`, `iso`, `focus`, `expo`, `aperture`, `manufacturer`, `expomet`, `width`, `height`, `program`, `sizefb`, `sizefmb`, `copyright`) VALUES ($marraycopy)";
 		
 mysqli_query($conect, $team);
-		
-	//	print_r ($marray);
-		
-		
+	
 	$fp = fopen("txt/report on all files.txt", "a");
 		$fp1=fopen("txt/report recent files.txt", "a");
 		$timedata=date('d-m-Y H:i:s');
-		$text="\n Дата записи фала: $timedata \n";
+		$text="\n Дата записи файла: $timedata \n";
 		fwrite($fp, $text);
 		fwrite($fp1, $text);
-	//print_r($marray); вывод всего массива
-	//	echo "+++++++++++++++++</br>";
+	
 	//вывод на экран в соответствии со значением 0,1...итд
 $result = count($marray);
-//	echo "+++++++++++++++++  $result</br>";
+
 	for ($i=0;$i<$result;$i++)
 	{	foreach($marray[$i] as $m=>$value1)
 		
@@ -1212,7 +1171,7 @@ $result = count($marray);
 	}
 		
 		
-	//создание тестового фала
+	//создание тестового файла
 	// строка, которую будем записывать
 
  
@@ -1255,6 +1214,11 @@ fclose($fp);
 	$team="UPDATE `menu` SET sizepb=$a, sizepmb=$b WHERE `menu`.`linkcopy` = $max";
 	$sum=mysqli_query($conect, $team);
 	
+        // изменения key
+        $ran= random_int(1, 1000000);
+        $ran= md5($ran);
+        $team="UPDATE `autho` SET `authoid` = '$ran' WHERE `autho`.`id` = '1'";
+        $auto=mysqli_query($conect, $team);
 
 	?>
 	
@@ -1275,9 +1239,9 @@ fclose($fp);
 	  		
 		echo "<a  style='color:green' href='txt\report recent files.txt' download>Сохранить отчет последней загрузки(формат TXT)</a></br>";
 	  echo "<a style='color:green' href='txt\report on all files.txt' download>Сохранить отчет загрузки за все время (формат TXT)</a></br>";
-	  echo "<a style='color:red' href='index6.php'  > Вернуться к форме загрузки файлов.</a>";
-          echo "</br><a style='color:red' href='index.php'  > Вернуться к сайту.</a>";
-	  echo "<p class='h6'color='green' >Успешно загружены фалы ($col шт.) : </br>Папка: $namefolder</p>";
+	  echo "<a class='red' href='index6.php'  > Вернуться к форме загрузки файлов.</a>";
+          echo "</br><a class='red' href='index.php'  > Вернуться к сайту.</a>";
+	  echo "<p class='h4'color='green' >Успешно загружены фалы ($col шт.) : </br>Папка: $namefolder</p>";
 	  $sc=0; $gal='<img src="gall_green.jpg">';
 	  
 			while ($a=mysqli_fetch_array($namefv))
@@ -1292,7 +1256,8 @@ fclose($fp);
 					$sc=0;
 				}
 			}
-			
+         
+    
 	?>
 		 </tr></table></div></div>
 </div>

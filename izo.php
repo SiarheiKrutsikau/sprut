@@ -24,18 +24,28 @@ margin: 0 auto;
 	min-width:800px;
 	}
 	
-	.block .element1{
-	border: solid 0px #C7CADD;
+	.element1{
+	border: solid 0px #AC9E16;
 	margin: 0px 0px 0px 0px;
 	padding: 0px 0px 0px 0px;
 	float: left;
-	height: 200px;
+	height: 115px;
 	width: 100%;
 		background-color: white;
 		color: white;
 		text-align: center;
 	}
-	
+	.element1:hover{
+	border: solid 0px #CFBD16;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	float: left;
+	height: 115px;
+	width: 100%;
+		background-color: white;
+		color: white;
+		text-align: center;
+	}
 	
 	.element2{
 	border: solid 3px #AC9E16;
@@ -192,7 +202,7 @@ margin: 0 auto;
 		margin: 0px;
 		text-align: center;
 		color:#AC9E16;
-		font-size: 24px;
+		font-size: 20px;
 		}
          .fmax:hover{
 			border: solid 2px #CFBD16;
@@ -203,24 +213,15 @@ margin: 0 auto;
 		border-radius: 25px;
 		margin: 0px;
 		text-align: center;
-		color:#AC9E16;
-		font-size: 24px;
+		color:#CFBD16;
+		font-size: 20px;
 		}
 	.buttonmini0{
-			 display: inline-block;/*ширины div по содержимому дочерних элементов
-		Многоцелевое свойство, которое определяет, как элемент должен быть показан в документе.
-		
-		*/
+		display: inline-block;
 		border: solid 0px #AC9E16;
-		/*width:400px;
-		height:54px;*/
 		float: bottom;
-		
-			background: white;
-		/*	margin: auto; /* верх и низ: отступ 0 ,блок отцентрирован горизонтально */
+		background: white;
 		border-radius: 25px;
-		/*margin-left: auto;
-		margin-right: auto;*/
 		padding: 5 0 5 0;
 		text-align: center;
 		color:#AC9E16;
@@ -230,15 +231,9 @@ margin: 0 auto;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		/*Центрирование с использованием модели flexbox
-Данный метод поддерживается всеми современными браузерами.
-		display: flex;
-    justify-content: center; /*Центрирование по горизонтали*/
-    /*align-items: center;     /*Центрирование по вертикали */
-		
 		float:left;	
 		border: solid 2px #AC9E16;
-		width: 160px;
+		width: 140px;
 		height: 50px;
 		background: white;
 		border-radius: 25px;
@@ -246,21 +241,15 @@ margin: 0 auto;
 		color:#AC9E16;
 		font-size: 18px;
 	margin: 0  10px 0 10px /*верх  право низ лево  */
-		
 		}
-		.buttonmini:hover{
+                
+	.buttonmini:hover{
 			display: flex;
 		justify-content: center;
 		align-items: center;
-		/*Центрирование с использованием модели flexbox
-Данный метод поддерживается всеми современными браузерами.
-		display: flex;
-    justify-content: center; /*Центрирование по горизонтали*/
-    /*align-items: center;     /*Центрирование по вертикали */
-		
 		float:left;	
-		border: solid 2px #AC9E16;
-		width:160px;
+		border: solid 2px #CFBD16;
+		width:140px;
 		height: 50px;
 		background: white;
 		border-radius: 25px;
@@ -268,10 +257,16 @@ margin: 0 auto;
 		color:#CFBD16;
 		font-size: 18px;
 	margin: 0  10px 0 10px /*верх  право низ лево  */
-			
-			
-		}
-	/*Чтобы центрировать что-то горизонтально в современных браузерах, вы можете использовать display: flex; justify-content: center; в старых браузерах.margin: 0 auto;*/
+			}
+	.buttonmini2{
+		display: inline-block;
+		border: solid 0px #AC9E16;
+		margin-left: auto;
+                margin-right: auto;
+		background: white;
+		width: auto;
+		height: auto;
+        }
 </style> 
 </head>
 <body>
@@ -315,12 +310,12 @@ margin: 0 auto;
                         while ($a=mysqli_fetch_array($dfolder))
 			{
                            $ch++;
-                            $b=trim ($a['compnamef']);
-                                if($b==$rc)
+                           $b=trim ($a['compnamef']);
+                          if($b==$rc)
                                 {
-                                    echo "Есть такое имя"; break;
+                                     break;
                                 }
-                                else if($col=$ch)
+                                else if($col==$ch)
                                 {
                                  echo "<a style='color:red; font-size: 25px;' href='index2.php?lc=$lc'  >Нет такого файла. Вернитесь к файлам папки.</a>"; exit;
 
@@ -328,84 +323,129 @@ margin: 0 auto;
                                
 			}
                                         
-			// удаление файлов из папки zip
-			$cat=scandir("zip/");
-			
-			foreach ($cat as $d)
-			{
-				
-				if(!($d=="." or $d==".." or $d==NULL))
-				{
-					$p='zip/'.$d;
-				
-					unlink ($p);
-				}
-					
-			}
-			
+// удаление файлов из папки zip
+$cat=scandir("zip/");
+foreach ($cat as $d)
+{
+    if(!($d=="." or $d==".." or $d==NULL))
+    {
+        $p='zip/'.$d;
+        unlink ($p);
+    }
+}
+// удаление файлов из папки txt
+$cat=scandir("txt/");
+foreach ($cat as $d)
+{
+    if(!($d=="." or $d==".." or $d==NULL or $d=="report on all files.txt" or $d=="report recent files.txt"))
+    {
+        $p='txt/'.$d;
+        unlink ($p);
+    }
+}
 			
 // получение имени папки
-$team="SELECT namefolder FROM menu WHERE linkcopy='$lc'";
+$team="SELECT namefolder, unamefolder FROM menu WHERE linkcopy='$lc'";
 $dfolder=mysqli_query($conect, $team);               
 $a=mysqli_fetch_array($dfolder);
 $namefolder=$a['namefolder'];
-
-
-$team="SELECT * FROM tablefiles WHERE compnamef='$rc'";
+$unamefolder=$a['unamefolder'];
+//echo "<a style='font-size: 25px;' href='index2.php?lc=$lc'  multiple title='Вернуться в папку'>Папка: $unamefolder</a>";
+$team=	"SELECT  `namef`, `author`, `sdata`, `mcamera`, `diafragme`, `excerpt`, `iso`, `focus`, `expo`, `aperture`, `manufacturer`, `expomet`, `width`, `height`, `program`, `sizefb`, `sizefmb`, `copyright` FROM tablefiles WHERE compnamef='$rc'";
 $dfolder=mysqli_query($conect, $team);
 $al=mysqli_fetch_array($dfolder);
-
- //var_dump($al);
-
- //создание zip arhiva
+ 
+//создание zip arhiva
+$cj=$al['namef'];
+$c=substr($cj, 0, strpos($cj,"."));
 $aname="images/$namefolder/".$rc;
-echo $aname;
 $files=array($aname);
-$zipname = 'zip/'.$namefolder.'.zip';
+$zipname = 'zip/'.$c.'.zip';
 $zip=new ZipArchive;
 $zip->open($zipname, ZipArchive::CREATE);
 foreach($files as $file)
 {
-$zip->addFile($file,$entryname = "$rc");
+
+    $zip->addFile($file,$entryname = "$cj");
 }			
 $zip->close();				      			                 
                         
  //вывод файла                       
-echo"<a href='$zipname' download ><div class='fmax'><img class='image' src='$aname' ></div></a>";
-			
+echo"<a href='$zipname' download ><div class='fmax'><img class='image' src='$aname' ></a></br>";
+
+//exif файла вывод
+$marray=array("Имя файла"=>"нет данных", "Автор"=>"нет данных", "Дата съемки"=>"нет данных", "Модель камеры"=>"нет данных", "Диафрагма"=>"нет данных", "Выдержка"=>"нет данных", "ISO"=>"нет данных", "Фокусное расстояние объектива"=>"нет данных", "Экспокоррекция"=>"нет данных", "Светосила"=>"нет данных", "Изготовитель камеры"=>"нет данных", "Экспозамер"=>"нет данных", "Ширина изображения"=>"нет данных", "Высота изображения"=>"нет данных", "Программа экспозиции"=>"нет данных", "Размер изображения, байт"=>"нет данных", "Размер изображения, Мбайт"=>"нет данных", "Авторские права"=>"нет данных");
+$m=0;
+foreach ($marray as $keys=>$value)
+{
+ 
+    $marray[$keys]=$al[$m];
+    $m++;
+}
+//создание навигации
+
+$team="SELECT compnamef FROM tablefiles WHERE linkf=$lc";
+$dfolder=mysqli_query($conect, $team); 
+$cnf = mysqli_num_rows($dfolder);
+$nav=array();
+while ($a=mysqli_fetch_array($dfolder))
+{
+    array_push($nav,$a['compnamef']);
+}
+$nulp=array_keys($nav,$rc,)[0];
+$maxx= array_key_last($nav);
+
+if ($nulp!=0)
+{
+    $min=$nulp-1;
+    
+}
+ else {
+    $min=0;
+}
+if ($nulp!=$maxx)
+{
+    $max=$nulp+1;
+}
+ else {
+$max=$maxx;    
+}
+//echo $min, $max,$maxx;
+$rcmin=$nav[$min];
+$rcmax=$nav[$max];
+$ptxt='txt/finfo_'.$c.'.txt';
+echo "<div class='buttonmini2'>";
+echo "<div class='buttonmini'><a href='izo.php?rc=$rcmin&lc=$lc' multiple title='Предыдущее изображение'><<</a></div><div class='buttonmini'>";
+echo "<a href='izo.php?rc=$rcmax&lc=$lc' multiple title='Следущее изображение'>>></a></div>";
+echo "<a href='index2.php?lc=$lc' multiple title='Вернуться в папку'><div class='buttonmini'>BACK</div></a>";
+echo "<a href='$aname' download='$cj' multiple title='Скачать изображение'><div class='buttonmini'>DOWNLOAD</div></a>"; 
+echo "<a href='$zipname' download ><div class='buttonmini' multiple title='Скачать ZIP архив с изображением'>DOWNLOAD</br>ZIP</div></a>";
+echo "<a href='$ptxt' download='finfo_$c.txt' multiple title='Скачать TXT файл с данными описания изображения (EXIF)'><div class='buttonmini'>DOWNLOAD</br>TXT</div></a></br></br></br>";
+echo "</div></br>";
+// запись временного файла txt в файл, вывод на экран
 		
-			
-					
-		
-		//<div class="buttonmini"><a href="index.php"><<</a></div><div class="buttonmini">
-		//	<a href="index.php">>></a></div> кнопки вперд назад
-			
-			?>
-		<br>
-		<div class="buttonmini0">
-			
-			</div>
-			<br><br>
-			<div class="buttonmini0">
-			
-			
-			
-			<?php	/*
-				echo "<a href="index2.php' ><div class='buttonmini'>BACK</div></a>";
-				echo "<a href='images/$id.png' download ><div class='buttonmini'>DOWNLOAD</div></a>"; 
-				echo "<a href='zip/$id.zip' download ><div class='buttonmini'>DOWNLOAD ZIP</div></a>";
-				*/?>
-			
-		
-			</div>
-		</div>
-			
-				
-		
-			
-			
-		<div class="element2"><a href="index2.php">DOG 	FORMAT PNG</a><br>
-		</div>
+                $fp1=fopen($ptxt, 'w+');
+		$timedata=date('d-m-Y H:i:s');
+                
+		$text="\n Дата записи файла: $timedata \n";
+		fwrite($fp1, $text);
+ foreach ($marray as $e=>$f)
+{
+  $text=$e.":	".$f."\n";
+  fwrite($fp1, $text);
+    echo $e.":     ".$f.'</br>';
+    if($e=='Имя файла') echo "</br>";
+}
+fclose($fp1);
+echo '</br></div>';
+
+       
+unset ($rc); 
+?>
+</br>
+</div>			
+<div class="element2"><a href="index2.php"><?php include ('menu.php');?></a>
+</div>
 		
 		<div class="f1">
 		<div class="r1">реклама1</div>

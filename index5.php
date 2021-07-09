@@ -171,6 +171,45 @@
 		padding: 8px 10px 10px 8px; 
 	margin: 5px  0px 10px 0px /*верх  право низ лево  */
 	}
+        .element2{
+	border: solid 3px #AC9E16;
+	text-align: center;
+	
+	height: auto;
+	width: 17%;
+	background-color: white;
+	border-radius: 25px;
+	font-size: 25px;
+	padding: 20px;
+	float: right;
+	margin-top: 4%;
+	margin-right: 1%;	
+		
+	}
+	.element2:hover{
+	border: solid 3px #CFBD16;
+	text-align: center;
+	
+	height: auto;
+	width: 17%;
+	background-color: white;
+	border-radius: 25px;
+	font-size: 25px;
+	padding: 20px;
+	float: right;
+	margin-top: 4%;
+	margin-right: 1%;	
+		
+	}
+        a { 
+    text-decoration: none; /* Убираем подчеркивание у ссылок */
+		color: #AC9E16; 
+		
+   }
+	a:hover { 
+    /*text-decoration: underline;*/
+		color: #CFBD16;
+	}
 </style>
 <meta charset="utf-8">
 <title>Документ без названия</title>
@@ -179,7 +218,7 @@
 
 <body>
 <img  class = "center" src="sprut.gif" width="300" height="107" alt=""/>
-			  
+	
 	<div class="i4">
 		<form class="i3" action="index6.php" method="POST" enctype="multipart/form-data" >
 			любой логин и пароль(надо дописать авторизацию)<br>
@@ -191,10 +230,10 @@
 			<div class="buttonmini"> Пароль <br>
 	<input class="i3" type="password"  required title="Введите пароль" size='25' maxlength='20' name="namefolder" >	
 		  
-	</div> </br><input class="i3" type="submit">			  
+	</div> </br><input class="i3" type="submit">	
+        
 	</div>
 
-	
 			
 	
 	</div>
