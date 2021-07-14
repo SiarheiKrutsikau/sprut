@@ -180,16 +180,16 @@ margin: 50px 50px 50px 50px;
 	
 	.image
 	{
-		border: solid 0px #CFBD16;
+	border: solid 0px #CFBD16;
 		
 	text-align: center;
 	
-	height: 150px;
-	width: 150px;
+	height: 225px;
+	width: 300px;
 	background-color: white;
-	border-radius: 25px;
-	font-size: 25px;
-	
+	border-radius: 0px;
+	font-size: 20px;
+	margin: 5px 0px 5px 0px;
 	
 	}
 	.os{
@@ -205,8 +205,8 @@ margin: 50px 50px 50px 50px;
 	
 	.f{
 			border: solid 2px #AC9E16;
-		width:300px;
-			height: 350px;
+		width:320px;
+			height: 360px;
 			background: white;
 			float: left;
 		border-radius: 25px;
@@ -217,8 +217,8 @@ margin: 50px 50px 50px 50px;
 		}
 	.f:hover{
 			border: solid 2px #CFBD16; 
-			width:300px;
-			height: 350px;
+			width:320px;
+			height: 360px;
 			background:white;
 			float: left;
 		border-radius: 25px;
@@ -229,8 +229,8 @@ margin: 50px 50px 50px 50px;
 		}
 	.f1{
 			border: solid 2px #AC9E16;
-		width:300px;
-			height: 350px;
+		width:350px;
+                height: 360px;
 			background: white;
 			float: left;
 		border-radius: 25px;
@@ -241,8 +241,8 @@ margin: 50px 50px 50px 50px;
 		}
 	.f1:hover{
 			border: solid 2px #CFBD16; 
-			width:300px;
-			height: 350px;
+			width:350px;
+			height: 360px;
 			background:white;
 			float: left;
 		border-radius: 25px;
@@ -283,12 +283,9 @@ margin: 50px 50px 50px 50px;
 			while ($a=mysqli_fetch_array($dfolder))
 			{
 				$b=trim ($a['compnamef']);
-				echo "<a href='izo.php?rc=$b&lc=$get'><div class='f1'><<img src='$a[previewf]' width='220' height='220'></br>Имя фала: $a[namef]</br>Автор: $a[author]</br>Дата создания: $a[sdata]</div></a>";
+				echo "<a href='izo.php?rc=$b&lc=$get'><div class='f1'><img class='image' src='$a[previewf]'></br>Имя фала: $a[namef]</br>Автор: $a[author]</br>Дата создания: $a[sdata]</div></a>";
 			}
-			
-			//echo '<a href="index.php"><div class="f"></br></br></br></br></br>back</div></a>';
-				
-                        
+			 
 			echo '<a href="index.php"><div class="f"></br></br></br></br></br></br>back</div></a>';
                         //проверка таблицы на существование
                        /* $team="SELECT * FROM menu LIMIT 1";

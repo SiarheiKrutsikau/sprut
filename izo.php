@@ -146,18 +146,17 @@ margin: 0 auto;
 	
 	.image
 	{
-		border: solid 0px #CFBD16;
-		
+	border: solid 0px #CFBD16;
 	text-align: center;
-	
-	height: auto;
-	width: 700px;
+	height: 406px;
+	width: 602px ;
 	background-color: white;
-	border-radius: 25px;
+	border-radius: 0px;
 	font-size: 25px;
-	margin: 20px;
-	
+	margin: 10px 0 10px 0;
 	}
+        
+	
 	.os{
 		height: 500px;
 	width: 100%x;
@@ -370,8 +369,14 @@ foreach($files as $file)
 }			
 $zip->close();				      			                 
                         
- //вывод файла                       
-echo"<a href='$zipname' download ><div class='fmax'><img class='image' src='$aname' ></a></br>";
+ //вывод файла
+//формат файла, к верхему регистру
+$format = mb_strtoupper(strtolower(substr($rc, strpos($rc, '.'))));
+$team="SELECT  pbig  FROM tablefiles WHERE linkf='$lc' AND compnamef='$rc'";
+    $dfolder=mysqli_query($conect, $team);
+    $raw=mysqli_fetch_array($dfolder);
+    $raw=$raw['pbig'];
+ echo"<a href='$zipname' download ><div class='fmax'><img class='image' src='$raw' ></a>";
 
 //exif файла вывод
 $marray=array("Имя файла"=>"нет данных", "Автор"=>"нет данных", "Дата съемки"=>"нет данных", "Модель камеры"=>"нет данных", "Диафрагма"=>"нет данных", "Выдержка"=>"нет данных", "ISO"=>"нет данных", "Фокусное расстояние объектива"=>"нет данных", "Экспокоррекция"=>"нет данных", "Светосила"=>"нет данных", "Изготовитель камеры"=>"нет данных", "Экспозамер"=>"нет данных", "Ширина изображения"=>"нет данных", "Высота изображения"=>"нет данных", "Программа экспозиции"=>"нет данных", "Размер изображения, байт"=>"нет данных", "Размер изображения, Мбайт"=>"нет данных", "Авторские права"=>"нет данных");
