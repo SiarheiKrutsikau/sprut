@@ -1,215 +1,40 @@
-<!doctype html>
+<?php
+
+include 'in.php';
+if($_SESSION['root']=='write' and session_name()=='test')
+{
+    $r='root администратора';
+    $root = 'root';
+}
+else
+{
+    $r='администратора';
+    $root = NULL;
+}
+
+if($_SESSION['test']!='OK' and ($_SESSION['newadmin'] and !$_POST))
+ {
+   
+    $new_url = 'index4.php';
+    unset($_SESSION['newadmin'], $_SESSION['test'], $_POST);
+    $_SESSION=array();
+    session_destroy();
+    
+    header('Location: '.$new_url);
+    exit();
+ }
+
+  else {
+     unset($_SESSION['newadmin'], $_SESSION['test']);
+  }
+
+?>
 <html>
 <head>
+    
+
 <style>
-.center {
-  margin:  10px auto ;
-    display: block;
-		
-}
-	.center1 {
-    margin: 1rem 0 0 0 ;
-    display: block;
-		 
-}
-	.center2 {
-    margin: -1rem 0 0 2rem;
-    display: block;
-}
-	.buttonmini{
-	
-		justify-content: center;
-		align-items: center;
-		/*Центрирование с использованием модели flexbox
-Данный метод поддерживается всеми современными браузерами.
-		display: flex;
-    justify-content: center; /*Центрирование по горизонтали*/
-    /*align-items: center;     /*Центрирование по вертикали */
- display: inline-block;
-		
-		float:center;	
-		justify-content: center;
-		align-items: center;
-		border: solid 2px #AC9E16;
-		width: auto;
-		height: auto;
-		background: white;
-		border-radius: 25px;
-		text-align: center;
-		color:#AC9E16;
-		font-size: 20px;
-		padding: 10px 20px 10px 20px; 
-	margin: 5px 0px 20px 0px /*верх  право низ лево  */
-	}
-		.buttonmini:hover{
-	
-		justify-content: center;
-		align-items: center;
-		
- display: inline-block;
-		
-		float:center;	
-		justify-content: center;
-		align-items: center;
-		border: solid 2px #CFBD16;;
-		width: auto;
-		height: auto;
-		background: white;
-		border-radius: 25px;
-		text-align: center;
-		color:#CFBD16;
-		font-size: 20px;
-		padding: 10px 20px 10px 20px; 
-	margin: 5px 0px 20px 0px /*верх  право низ лево  */
-	}
-	
-	
-	.i2{
-		justify-content: center;
-		align-items: center;
-		float:center;	
-		justify-content: center;
-		align-items: center;
-		border: solid 2px #AC9E16;
-		width: auto;
-		height: auto;
-		background: white;
-		border-radius: 25px;
-		text-align: center;
-		color:#AC9E16;
-		font-size: 20px;
-		padding: 20px 10px 10px 10px; 
-	margin: -1px  10px 0 10px /*верх  право низ лево  */
-	}
-	.i2:hover{
-		justify-content: center;
-		align-items: center;
-		float:center;	
-		justify-content: center;
-		align-items: center;
-		border: solid 2px #CFBD16;
-		width: auto;
-		height: auto;
-		background: white;
-		border-radius: 25px;
-		text-align: center;
-		color:#CFBD16;
-		font-size: 20px;
-		padding: 20px 10px 10px 10px; 
-	margin: -1px  10px 0 10px /*верх  право низ лево  */
-	}
-	
-			.i3{
-		justify-content: center;
-		align-items: center;
-		float:center;	
-		justify-content: center;
-		align-items: center;
-		border: solid 2px #AC9E16;
-		width: auto;
-		height: auto;
-		background: white;
-		border-radius: 25px;
-		text-align: center;
-		color:#AC9E16;
-		font-size: 20px;
-		padding: 8px 10px 10px 8px; 
-	margin: 5px  8px 20px 10px /*верх  право низ лево  */
-	}
-			.i3:focus {
-		justify-content: center;
-		align-items: center;
-		float:center;	
-		justify-content: center;
-		align-items: center;
-		outline: none; /*убирает линию вокруг*/
-		border: solid 2px #CFBD16;
-		width: auto;
-		height: auto;
-		background: white;
-		border-radius: 25px;
-		text-align: center;
-		color:#CFBD16;
-		font-size: 20px;
-		padding: 8px 10px 10px 8px; 
-	margin: 5px  8px 20px 10px /*верх  право низ лево  */
-		
-	}
-	.i3:hover {
-		justify-content: center;
-		align-items: center;
-		float:center;	
-		justify-content: center;
-		align-items: center;
-		outline: none; /*убирает линию вокруг*/
-		border: solid 2px #CFBD16;
-		width: auto;
-		height: auto;
-		background: white;
-		border-radius: 25px;
-		text-align: center;
-		color:#CFBD16;
-		font-size: 20px;
-		padding: 8px 10px 10px 8px; 
-	margin: 5px  8px 20px 10px /*верх  право низ лево  */
-	}
-	.i4{
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		float:center;	
-		justify-content: center;
-		align-items: center;
-		border: solid 0px #AC9E16;
-		width: auto;
-		height: auto;
-		background:white;
-		border-radius: 25px;
-		text-align: center;
-		color:#AC9E16;
-		font-size: 20px;
-		padding: 8px 10px 10px 8px; 
-	margin: 5px  0px 10px 0px /*верх  право низ лево  */
-	}
-        .element2{
-	border: solid 3px #AC9E16;
-	text-align: center;
-	
-	height: auto;
-	width: 17%;
-	background-color: white;
-	border-radius: 25px;
-	font-size: 25px;
-	padding: 20px;
-	float: right;
-	margin-top: 4%;
-	margin-right: 1%;	
-		
-	}
-	.element2:hover{
-	border: solid 3px #CFBD16;
-	text-align: center;
-	
-	height: auto;
-	width: 17%;
-	background-color: white;
-	border-radius: 25px;
-	font-size: 25px;
-	padding: 20px;
-	float: right;
-	margin-top: 4%;
-	margin-right: 1%;	
-		
-	}
-        a { 
-    text-decoration: none; /* Убираем подчеркивание у ссылок */
-		color: #AC9E16; 
-		
-   }
-	a:hover { 
-    /*text-decoration: underline;*/
-		color: #CFBD16;
-	}
+@import url("mein.css");
 </style>
 <meta charset="utf-8">
 <title>Документ без названия</title>
@@ -217,24 +42,86 @@
 	
 
 <body>
+ <?php
+ include ('bd.php');
+
+
+  if(isset($_POST['newlogin']) and isset($_POST['newpassword']) and isset($_POST['newpassword1']))
+  {
+      
+      //проверка пароля
+      if(trim ($_POST['newpassword'])!=trim ($_POST['newpassword1']))
+      {
+          echo "<a class='red' href='index5.php'  >Пароли не совпадают! Логин и пароль не созданы.</a>";
+          $_SESSION['newadmin']='OK'; 
+          unset($_POST, $_SESSION['test'], $_SESSION['root']);
+          exit();
+      }
+     
+        $newlogin=trim ($_POST['newlogin']);
+        //проверка на существование логина
+        $team="SELECT authoid FROM autho";
+        $autho=mysqli_query($conect, $team);
+        while ($authoid=mysqli_fetch_array($autho))
+        {
+            if ($authoid['authoid']==$newlogin)
+            {
+             echo "<a class='red' href='index5.php'  >Логин/Пароль уже существуют</a>";
+             $_SESSION['newadmin']='OK'; 
+          unset($_POST, $_SESSION['test'], $_SESSION['root']);
+          exit();
+            }
+        }   
+            //создание пароля
+           $newp=trim ($_POST['newpassword']);
+            $newpass=password_hash($newp, PASSWORD_BCRYPT);
+            
+            //время создания 
+            $time = time();
+            $metkarab = date ("d:m:Y H:i:s", $time);
+
+            //запись данных
+            $team="INSERT INTO `autho` (`id`, `authoid`, `authoidp`, `metkarab`,`root`, `del`) VALUES (NULL, '$newlogin', '$newpass', '$metkarab', '$root', NULL)";
+            $autho=mysqli_query($conect, $team);
+            
+           
+            unset($_POST, $_SESSION['newadmin'], $_SESSION['test'], $_SESSION['root']);
+            echo "<a class='red' href='index4.php' >Логин и пароль для нового администратора созданы</a>";
+            exit();
+  }
+  else 
+  {
+     // $_SESSION['newadmin']='OK'; 
+  }
+ 
+
+ ?>
 <img  class = "center" src="sprut.gif" width="300" height="107" alt=""/>
 	
 	<div class="i4">
-		<form class="i3" action="index6.php" method="POST" enctype="multipart/form-data" >
-			любой логин и пароль(надо дописать авторизацию)<br>
+		<form class="i3" action="index5.php" method="POST" enctype="multipart/form-data" >
+<?php echo "Создание нового логина и пароля для $r";?><br>
 				  <div class="buttonmini"> Логин <br>
-	<input class="i3" type="text"  required title="Введите имя" size='25' maxlength='20' name="namefolder" >	
+	<input class="i3" type="text"  required title="Введите имя" size='25' maxlength='20' name="newlogin">	
 		  
 	</div>
 				  </br>
 			<div class="buttonmini"> Пароль <br>
-	<input class="i3" type="password"  required title="Введите пароль" size='25' maxlength='20' name="namefolder" >	
-		  
-	</div> </br><input class="i3" type="submit">	
+	<input class="i3" type="password"  required title="Введите пароль" size='25' maxlength='20' name="newpassword" >	
+	        
+	</div>        </br>
+			<div class="buttonmini"> Подтверждение пароля <br>
+	<input class="i3" type="password"  required title="Введите пароль" size='25' maxlength='20' name="newpassword1" >	
+	
+        
+	</div> </br>
+        
+        <input class="i3" type="submit">	
         
 	</div>
 
-			
+<a  href='index.php'>Вернуться к сайту</a>
+<a  href='index4.php'>Вернуться к авторизации администратора</a>			
 	
 	</div>
 	

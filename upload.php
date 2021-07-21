@@ -1,3 +1,4 @@
+
 <html>
 <head>
 <style>
@@ -516,7 +517,8 @@ $list = array(".01." => "января", ".02." => "февраля",
 			$value2 = str_replace($_mD, " ".$list[$_mD]." ", $datap).$datap1; // меняю
 	return($value2);
 	}
-	foreach($_FILES['image'] as $k=>$v)
+	
+        foreach($_FILES['image'] as $k=>$v)
 	{
 		echo'<div class="i3">';
 		
